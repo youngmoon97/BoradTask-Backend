@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.boardtask.dao.BoardTaskDAO">
+	
+	<!-- 게시판 리스트 조회 -->
+	<select id="getBoardList" resultType="com.example.boardtask.model.BoardTaskVO">
+		<![CDATA[
+	        SELECT * 
+            FROM   board.tb_board
+        ]]>
+        
+    </select>
+    
+    <!-- 게시판 디테일 조회 -->
+    <select id="getBoardDetail" resultType="com.example.boardtask.model.BoardTaskVO">
+		<![CDATA[
+	        SELECT * 
+            FROM   board.tb_board
+            WHERE board_idx = #{boardIdx}
+        ]]>
+    </select>
+    
+    <!-- 게시판 등록-->
+    <insert id="insertBoard" parameterType="com.example.boardtask.model.BoardTaskVO">
+    	<![CDATA[
+	        INSERT INTO 
+					board.tb_board
+				( 
+					board_title,
+					board_contents,
+					board_writer,
+					insert_date
+				)
+			VALUES 
+				( 
+					#{boardTitle},
+					#{boardContents},
+					#{boardWriter},
+					now()
+				)
+		]]>
+    </insert>
+    
+    <!-- 게시판 수정 -->
+    <insert id="updateBoard" parameterType="com.example.boardtask.model.BoardTaskVO">
+    	<![CDATA[
+	        UPDATE
+				board.tb_board
+			SET
+				board_title = #{boardTitle},
+				board_contents = #{boardContents},
+				update_date = now()
+			WHERE
+				board_idx = #{boardIdx}
+		]]>
+    </insert>
+    
+    <!-- 게시판 삭제 -->
+    <select id="deleteBoard" parameterType="com.example.boardtask.model.BoardTaskVO">
+		<![CDATA[
+	        DELETE FROM 
+				board.tb_board
+		    WHERE 
+		    	board_idx = #{boardIdx}
+        ]]>
+    </select> 
+</mapper>
