@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.boardtask.dao.CommentDAO">
+	
+	<!-- 해당 게시물 댓글 조회 -->
+	<select id="getCommentList" resultType="com.example.boardtask.model.CommentVO">
+		<![CDATA[
+	        SELECT
+	        	comment_idx,
+	        	comment_contents,
+	        	board_idx,
+	        	comment_writer,
+	        	TO_CHAR(comment_date,'YYYY-MM-DD HH24:MI') as comment_date
+            FROM   board.tb_comment
+            where board_idx = #{boardIdx}
+          	order by comment_date desc 
+        ]]>
+    </select>
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="com.example.boardtask.model.CommentVO">
+    	<![CDATA[
+	        INSERT INTO 
+					board.tb_comment
+				( 
+					comment_contents,
+					comment_writer,
+					board_idx,
+					comment_date
+				)
+			VALUES 
+				( 
+					#{commentContents},
+					#{commentWriter},
+					#{boardIdx},
+					now()
+				)
+		]]>
+    </insert>
+</mapper>

@@ -1,6 +1,6 @@
 package com.example.boardtask.model;
 
-import java.time.LocalDateTime;
+
 
 import lombok.Data;
 import lombok.Getter;
@@ -15,8 +15,5 @@ public class BoardTaskVO {
 	private String boardContents;
 	private Integer boardCnt;
 	private String boardWriter;
-	private LocalDateTime insertDate;
-	private LocalDateTime updateDate;
-	
-	
+	private String insertDate;
 }

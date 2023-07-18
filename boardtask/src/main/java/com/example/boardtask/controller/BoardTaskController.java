@@ -3,7 +3,6 @@ package com.example.boardtask.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.boardtask.model.BoardTaskVO;
 import com.example.boardtask.service.BoardTaskService;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,12 +29,16 @@ public class BoardTaskController {
 		return resultList;
 	}
 	@GetMapping(value="/getDetail")
+	@ResponseBody
 	public BoardTaskVO getBoardDetail(@RequestParam("boardIdx") Integer boardIdx) {
 //		log.info("getBoardList");
 		BoardTaskVO result = boardTaskService.getBoardDetail(boardIdx);
+		Integer cntUp = boardTaskService.increaseCnt(boardIdx);
+//		System.out.println("cntUP : "+cntUp);
 		return result;
 	}
 	
+	// 성공시 1 실패 0
 	@PostMapping(value="/insertBoard")
 	@ResponseBody
 	public Integer insertBoard(@RequestBody BoardTaskVO boardTaskVO) {

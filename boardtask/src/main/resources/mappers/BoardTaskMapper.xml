@@ -6,21 +6,46 @@
 	<!-- 게시판 리스트 조회 -->
 	<select id="getBoardList" resultType="com.example.boardtask.model.BoardTaskVO">
 		<![CDATA[
-	        SELECT * 
+	        SELECT
+	        	board_idx,
+	        	board_title,
+	        	board_contents,
+	        	board_cnt,
+	        	board_writer,
+	        	TO_CHAR(insert_date,'YYYY-MM-DD HH24:MI') as insert_date
             FROM   board.tb_board
+          	order by insert_date desc 
         ]]>
-        
+        <!-- <if test='update_date.isNotNull'>
+	    	insert-date = 
+	    </if> -->
     </select>
     
     <!-- 게시판 디테일 조회 -->
     <select id="getBoardDetail" resultType="com.example.boardtask.model.BoardTaskVO">
 		<![CDATA[
-	        SELECT * 
+	        SELECT 
+	        	board_idx,
+	        	board_title,
+	        	board_contents,
+	        	board_cnt,
+	        	board_writer,
+	        	TO_CHAR(insert_date,'YYYY-MM-DD HH24:MI') as insert_date
             FROM   board.tb_board
             WHERE board_idx = #{boardIdx}
         ]]>
     </select>
-    
+    <!-- 게시판 조회수증가 -->
+    <insert id="increaseCnt" parameterType="com.example.boardtask.model.BoardTaskVO">
+    	<![CDATA[
+	        UPDATE
+				board.tb_board
+			SET
+				board_cnt = board_cnt + 1
+			WHERE
+				board_idx = #{boardIdx}
+		]]>
+    </insert>
     <!-- 게시판 등록-->
     <insert id="insertBoard" parameterType="com.example.boardtask.model.BoardTaskVO">
     	<![CDATA[
@@ -50,8 +75,10 @@
 			SET
 				board_title = #{boardTitle},
 				board_contents = #{boardContents},
-				update_date = now()
+				insert_date = now()
 			WHERE
+			
+			
 				board_idx = #{boardIdx}
 		]]>
     </insert>

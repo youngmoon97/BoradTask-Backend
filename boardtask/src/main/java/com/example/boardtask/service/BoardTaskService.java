@@ -13,17 +13,21 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardTaskService {
-private final BoardTaskDAO boardTaskDAO;
+	private final BoardTaskDAO boardTaskDAO;
 	
 	// 게시판 리스트 조회
 	public List<BoardTaskVO> getBoardList(){
 		return boardTaskDAO.getBoardList();
 	}
-	// 
+	// 게시판 디테일 조회 
 	public BoardTaskVO getBoardDetail(Integer boardIdx) {
 		return boardTaskDAO.getBoardDetail(boardIdx);
 	}
-	
+	// 게시판 조회수 증가
+	public Integer increaseCnt(Integer boardIdx) {
+		Integer result = boardTaskDAO.increaseCnt(boardIdx);
+		return result;
+	}
 	// 
 	public Integer insertBoard(BoardTaskVO boardTaskVO) {
 		Integer result = boardTaskDAO.insertBoard(boardTaskVO);

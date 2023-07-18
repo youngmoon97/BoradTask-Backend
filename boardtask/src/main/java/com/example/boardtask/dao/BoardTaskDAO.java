@@ -15,7 +15,8 @@ public interface BoardTaskDAO {
 	List<BoardTaskVO> getBoardList();
 	// 게시판 디테일 조회
 	BoardTaskVO getBoardDetail(Integer boardIdx);
-	
+	// 게시판 조회수 증가
+	Integer increaseCnt(Integer boardIdx);
 	// 게시판 등록 수정 삭제
 	Integer insertBoard(BoardTaskVO boardTaskVO);
 	Integer updateBoard(BoardTaskVO boardTaskVO);
